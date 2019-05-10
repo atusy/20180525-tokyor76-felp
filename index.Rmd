@@ -1,0 +1,178 @@
+---
+title: |
+  <small>Tokyo.R 78 LT</small> \
+  May I felp you?
+author: |
+  \
+  atusy
+date: 2019-05-25
+output:
+  revealjs::revealjs_presentation:
+    mathjax: NULL
+    center: true
+    theme: beige
+    reveal_options:
+      slideNumber: true
+    css: style.css
+    self_contained: false
+    pandoc_args:
+      - -f
+      - markdown+east_asian_line_breaks
+---
+
+```{r setup, include=FALSE}
+pacman::p_load_gh("atusy/felp")
+pacman::p_load(prettycode, printr)
+knitr::opts_chunk$set(class.output="output")
+```
+
+# Atusy {#atusy}
+
+:::: container
+
+::: item
+
+![](https://github.com/atusy/presentation/raw/master/headphone.jpg){height=6em width=6em}
+
+:::
+
+::: item
+
+- [(株) 蒜山地質年代学研究所](http://geohiruzen.co.jp/)
+    - 岡山市内
+    - 化学分析とか R パッケージ開発とか
+- ![](https://icongr.am/feather/home.svg)
+  [blog.atusy.net](https://blog.atusy.net)
+- ![](https://icongr.am/feather/twitter.svg)
+  [\@Atsushi776](https://twitter.com/Atsushi776)
+
+:::
+
+::::
+
+
+# ある日の Tokyo.R {#tokyor}
+
+- 関数のヘルプ見る時，ソースも見たいよね．
+- 関数書いてからヘルプ欲しくなった時の `?` が面倒． \
+  後置演算子が欲しい．
+    
+    ```r
+      ?dplyr::select
+    # ↑ここまで戻りたくない
+    ```
+- いっそ関数の名前だけでソースとヘルプ出して欲しい
+
+# [atusy/felp](//github.com/atusy/felp) ![](https://icongr.am/feather/github.svg?size=48px) {#felp}
+
+## **f**unction h**elp** {#origin}
+
+```r
+# インストール
+source("https://install-github.me/atusy/felp")
+```
+
+他の偉大な R パッケージたちのついでに， \
+ThankYouStarsして下さい
+
+[ThankYouStarsで感謝の気持ちをスターで伝えよう](https://www.slideshare.net/ksmzn/thankyoustars) by ksmzn 氏
+
+## `?help` + `help` をカンタンに {#howto}
+
+```r
+# utils::`?` と同じ記法で
+?help
+?utils::help
+
+# 疑似後置演算子
+help?.
+utils::help?.
+
+# help() の代替
+felp(help)
+felp("help")
+felp(utils::help)
+felp(help, utils)
+```
+
+## Demo
+
+```{r demo, comment=""}
+library(felp)
+library(printr) # Rmdの出力にヘルプが出せる!
+identity?.
+```
+
+## 工夫1: 互換性 {#compatibility}
+
+- `?` をS3総称関数として再定義し，
+    - 関数に対しては `felp:::?.function()` を呼ぶ
+    - その他のオブジェクトに対しては \
+      `felp:::?.default()` 経由で `utils::?()` を呼ぶ
+- `felp()` は `help()` と同じ引数を持つ
+
+
+
+## 工夫2: 疑似後置演算子 `?.` {#pseudo-postfix-operator}
+
+`utils::?` は中置演算子
+
+本来は S4 メソッドのヘルプ参照などに使うらしい
+
+```r
+method?generic
+```
+
+`felp` では `help?.` なら `.` を無視して `?help` に見せかける
+
+## 工夫3: `prettycode` で syntax highlight {#prettycode}
+
+```{r prettycode, class.output="r", comment=""}
+prettycode:::print.function(identity)
+```
+
+
+# 制作秘話 {#secret}
+
+コンソールに関数のシンボルだけ打って \
+直ちにソースとヘルプを見たかったが挫折
+
+## 黒魔術を駆使したが……
+
+```{r implicit-print-does-not-capture-input}
+print.a <- function(x) deparse(substitute(x))
+a <- structure(1, class = "a")
+print(a)
+a
+```
+
+入力内容を暗黙の print で捕捉できない\
+↓\
+`savehistory()` してコマンド履歴を漁ることにした
+
+## RStudio との相性が最悪
+
+- 特殊な環境にいる `savehistory()` を使う必要あり
+
+    ```r
+    get(
+      'savehistory', 
+      envir = as.environment('tools:rstudio')
+    )
+    ```
+
+- オレオレ `print.funcion` 内で `help` を呼ぶと，
+    - RStudio の入力補完機能で関数を選ぶ時にヘルプが繰り返し開かれる
+    - その内 "The previous R session was abnormally terminated due to an unexpected crash"
+
+
+疲れました……．
+
+# 今後の展開
+
+- `p?dplyr` で `dplyr` パッケージのヘルプを返す
+- `?iris` で `iris` のヘルプと `str(iris)` を返す
+    - ちなみに `felp(iris)` は `help(iris)` と `dput(iris)` を返すナゾ仕様
+- CRAN いっちゃう？
+
+# Enjoy!
