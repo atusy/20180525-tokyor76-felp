@@ -14,10 +14,6 @@ output:
     css: style.css
     self_contained: false
     md_extentions: +east_asian_line_breaks
-header-includes:
-    - <meta name="twitter:card" content="summary" />
-    - <meta name="twitter:title" content="サンプルスライド" />
-    - <meta name="twitter:image" content="https://github.com/atusy/presentation/raw/master/headphone.jpg" />
 ---
 
 ```{r setup, include=FALSE}
@@ -116,7 +112,7 @@ method?generic
 ## 工夫3: `prettycode` で syntax highlight {#prettycode}
 
 ```{r prettycode, class.output="r", comment=""}
-prettycode:::print.function(identity)
+identity
 ```
 
 
