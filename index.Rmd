@@ -2,9 +2,7 @@
 title: |
   <small>Tokyo.R 78 LT</small> \
   May I felp you?
-author: |
-  \
-  atusy
+author: atusy
 date: 2019-05-25
 output:
   revealjs::revealjs_presentation:
@@ -13,17 +11,18 @@ output:
     theme: beige
     reveal_options:
       slideNumber: true
+    reveal_plugins:
+      - notes
     css: style.css
     self_contained: false
-    pandoc_args:
-      - -f
-      - markdown+east_asian_line_breaks
+    md_extentions: +east_asian_line_breaks
+    template: default.html
 ---
 
 ```{r setup, include=FALSE}
-pacman::p_load_gh("atusy/felp")
+pacman::p_load_gh("atusy/felp", "atusy/atusydown")
 pacman::p_load(prettycode, printr)
-knitr::opts_chunk$set(class.output="output")
+knitr::opts_chunk$set(class.output = "output")
 ```
 
 # Atusy {#atusy}
@@ -38,9 +37,7 @@ knitr::opts_chunk$set(class.output="output")
 
 ::: item
 
-- [(株) 蒜山地質年代学研究所](http://geohiruzen.co.jp/)
-    - 岡山市内
-    - 化学分析とか R パッケージ開発とか
+- 仕事: 岩石などの化学分析とか R パッケージ開発とか
 - ![](https://icongr.am/feather/home.svg)
   [blog.atusy.net](https://blog.atusy.net)
 - ![](https://icongr.am/feather/twitter.svg)
@@ -50,20 +47,18 @@ knitr::opts_chunk$set(class.output="output")
 
 ::::
 
-
 # ある日の Tokyo.R {#tokyor}
 
 - 関数のヘルプ見る時，ソースも見たいよね．
-- 関数書いてからヘルプ欲しくなった時の `?` が面倒． \
-  後置演算子が欲しい．
+- 関数書いてからヘルプ欲しくなった時の `?` が面倒．
     
     ```r
       ?dplyr::select
     # ↑ここまで戻りたくない
     ```
-- いっそ関数の名前だけでソースとヘルプ出して欲しい
+<!-- - いっそ関数の名前だけでソースとヘルプ出して欲しい -->
 
-# [atusy/felp](//github.com/atusy/felp) ![](https://icongr.am/feather/github.svg?size=48px) {#felp}
+# [atusy/felp](https://github.com/atusy/felp) ![](https://icongr.am/feather/github.svg?size=48px) {#felp}
 
 ## **f**unction h**elp** {#origin}
 
@@ -75,9 +70,12 @@ source("https://install-github.me/atusy/felp")
 他の偉大な R パッケージたちのついでに， \
 ThankYouStarsして下さい
 
-[ThankYouStarsで感謝の気持ちをスターで伝えよう](https://www.slideshare.net/ksmzn/thankyoustars) by ksmzn 氏
+[ThankYouStarsで感謝の気持ちをスターで伝えよう](https://www.slideshare.net/ksmzn/thankyoustars)
+by kossy 氏 ([\@ksmzn](https://twitter.com/ksmzn))
 
-## `?help` + `help` をカンタンに {#howto}
+## {#howto}
+
+### 関数のソースとヘルプを一発で
 
 ```r
 # utils::`?` と同じ記法で
@@ -97,7 +95,7 @@ felp(help, utils)
 
 ## Demo
 
-```{r demo, comment=""}
+```{r demo, comment="", attr.output=".font-small"}
 library(felp)
 library(printr) # Rmdの出力にヘルプが出せる!
 identity?.
@@ -107,7 +105,7 @@ identity?.
 
 - `?` をS3総称関数として再定義し，
     - 関数に対しては `felp:::?.function()` を呼ぶ
-    - その他のオブジェクトに対しては \
+    - `iris` などその他のオブジェクトに対しては \
       `felp:::?.default()` 経由で `utils::?()` を呼ぶ
 - `felp()` は `help()` と同じ引数を持つ
 
@@ -139,16 +137,18 @@ prettycode:::print.function(identity)
 
 ## 黒魔術を駆使したが……
 
-```{r implicit-print-does-not-capture-input}
+```{r implicit-print-does-not-capture-input, collapse = TRUE, class.output = "", comment = "#>"}
 print.a <- function(x) deparse(substitute(x))
 a <- structure(1, class = "a")
 print(a)
 a
 ```
 
-入力内容を暗黙の print で捕捉できない\
-↓\
-`savehistory()` してコマンド履歴を漁ることにした
+入力内容を暗黙の print で捕捉できない
+
+↓
+
+### `savehistory()` してコマンド履歴を漁る
 
 ## RStudio との相性が最悪
 
@@ -161,12 +161,10 @@ a
     )
     ```
 
-- オレオレ `print.funcion` 内で `help` を呼ぶと，
-    - RStudio の入力補完機能で関数を選ぶ時にヘルプが繰り返し開かれる
-    - その内 "The previous R session was abnormally terminated due to an unexpected crash"
+- オレオレ `print.funcion` を作ったら
+    - 入力補完機能が動作している間ヘルプが繰り返し開く
+    - そして **"an unexpected crash"**
 
-
-疲れました……．
 
 # 今後の展開
 

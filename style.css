@@ -101,3 +101,24 @@ li div.sourceCode {
 .reveal .sourceCode+pre {
   margin-top: 0;
 }
+
+.reveal div.sourceCode {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.reveal h2+div pre.sourceCode {
+  margin-top: 5px;
+}
+
+.reveal .font-small {
+  font-size: 1rem;
+}
+
+.title+.author {
+  margin-top: 3em;
+}
+
+h2.author,h3.date {
+  font-size: .8em;
+}
