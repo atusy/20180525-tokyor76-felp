@@ -90,6 +90,10 @@ li div.sourceCode {
   justify-content: space-around;
 }
 
+.container .item+.iten {
+  flex: 1;
+}
+
 .container .item .left {
   width: 40%;
 }

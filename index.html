@@ -520,18 +520,15 @@ May I felp you?</p></h1>
     <h3 class="date">2019-05-25</h3>
 </section>
 
-<section id="atusy" class="title-slide slide level1"><h1>Atusy</h1><div class="container">
-<div class="item">
-<p><img data-src="https://github.com/atusy/presentation/raw/master/headphone.jpg" style="width:6em;height:6em" /></p>
-</div>
-<div class="item">
+<section id="atusy" class="title-slide slide level1"><h1><img data-src="https://github.com/atusy/presentation/raw/master/headphone.jpg" alt="atusy" style="height:0.8em" /> Atusy</h1><ul>
+<li>仕事
 <ul>
-<li>仕事: 岩石などの化学分析とか R パッケージ開発とか</li>
+<li>岩石などの化学分析</li>
+<li>R パッケージ開発</li>
+</ul></li>
 <li><img data-src="https://icongr.am/feather/home.svg" /> <a href="https://blog.atusy.net">blog.atusy.net</a></li>
 <li><img data-src="https://icongr.am/feather/twitter.svg" /> <a href="https://twitter.com/Atsushi776">@Atsushi776</a></li>
-</ul>
-</div>
-</div></section>
+</ul></section>
 <section id="tokyor" class="title-slide slide level1"><h1>ある日の Tokyo.R</h1><ul>
 <li><p>関数のヘルプ見る時，ソースも見たいよね．</p></li>
 <li><p>関数書いてからヘルプ欲しくなった時の <code>?</code> が面倒．</p>
@@ -545,7 +542,8 @@ May I felp you?</p></h1>
 <a class="sourceLine" id="cb2-2" title="2"><span class="kw">source</span>(<span class="st">&quot;https://install-github.me/atusy/felp&quot;</span>)</a></code></pre></div>
 <p>他の偉大な R パッケージたちのついでに，<br />
 ThankYouStarsして下さい</p>
-<p><a href="https://www.slideshare.net/ksmzn/thankyoustars">ThankYouStarsで感謝の気持ちをスターで伝えよう</a> by kossy 氏 (<a href="https://twitter.com/ksmzn">@ksmzn</a>)</p>
+<p><a href="https://www.slideshare.net/ksmzn/thankyoustars">ThankYouStarsで感謝の気持ちをスターで伝えよう</a><br />
+by kossy<a href="https://twitter.com/ksmzn">@ksmzn</a></p>
 </section><section id="howto" class="slide level2">
 <h2></h2>
 <h3 id="section">関数のソースとヘルプを一発で</h3>
@@ -569,7 +567,7 @@ ThankYouStarsして下さい</p>
 <a class="sourceLine" id="cb4-3" title="3">identity?.</a></code></pre></div>
 <pre class="output font-small"><code>function (x) 
 x
-&lt;bytecode: 0x55c34568f6a8&gt;
+&lt;bytecode: 0x5610fa75a6a8&gt;
 &lt;environment: namespace:base&gt;</code></pre>
 <pre class="output font-small"><code>Identity Function
 
@@ -610,12 +608,13 @@ See Also:
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">prettycode<span class="op">:::</span><span class="kw">print.function</span>(identity)</a></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="cf">function</span> (x) </a>
 <a class="sourceLine" id="cb9-2" title="2">x</a>
-<a class="sourceLine" id="cb9-3" title="3"><span class="op">&lt;</span>bytecode<span class="op">:</span><span class="st"> </span><span class="dv">0x55c34568f6a8</span><span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="op">&lt;</span>bytecode<span class="op">:</span><span class="st"> </span><span class="dv">0x5610fa75a6a8</span><span class="op">&gt;</span></a>
 <a class="sourceLine" id="cb9-4" title="4"><span class="er">&lt;</span>environment<span class="op">:</span><span class="st"> </span>namespace<span class="op">:</span>base<span class="op">&gt;</span></a></code></pre></div>
 </section></section>
-<section><section id="secret" class="title-slide slide level1"><h1>制作秘話</h1><p>コンソールに関数のシンボルだけ打って<br />
-直ちにソースとヘルプを見たかったが挫折</p></section><section id="section-1" class="slide level2">
-<h2>黒魔術を駆使したが……</h2>
+<section><section id="secret" class="title-slide slide level1"><h1>制作秘話</h1><p>オレオレ <code>print.function</code> を作って</p>
+<p><code>?</code> すら使わずシンボルを入力するだけで</p>
+<p>ソースとヘルプを見たかったが挫折</p></section><section id="a--a-" class="slide level2">
+<h2><code>a</code> と打ったら <code>"a"</code> を返して欲しい</h2>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">print.a &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">deparse</span>(<span class="kw">substitute</span>(x))</a>
 <a class="sourceLine" id="cb10-2" title="2">a &lt;-<span class="st"> </span><span class="kw">structure</span>(<span class="dv">1</span>, <span class="dt">class =</span> <span class="st">&quot;a&quot;</span>)</a>
 <a class="sourceLine" id="cb10-3" title="3"><span class="kw">print</span>(a)</a>
@@ -633,14 +632,14 @@ See Also:
 <a class="sourceLine" id="cb11-2" title="2">  <span class="st">&#39;savehistory&#39;</span>, </a>
 <a class="sourceLine" id="cb11-3" title="3">  <span class="dt">envir =</span> <span class="kw">as.environment</span>(<span class="st">&#39;tools:rstudio&#39;</span>)</a>
 <a class="sourceLine" id="cb11-4" title="4">)</a></code></pre></div></li>
-<li><p>オレオレ <code>print.funcion</code> を作ったら</p>
+<li><p>いざ実装したら</p>
 <ul>
 <li>入力補完機能が動作している間ヘルプが繰り返し開く</li>
 <li>そして <strong>“an unexpected crash”</strong></li>
 </ul></li>
 </ul>
 </section></section>
-<section id="section-2" class="title-slide slide level1"><h1>今後の展開</h1><ul>
+<section id="section-1" class="title-slide slide level1"><h1>今後の展開</h1><ul>
 <li><code>p?dplyr</code> で <code>dplyr</code> パッケージのヘルプを返す</li>
 <li><code>?iris</code> で <code>iris</code> のヘルプと <code>str(iris)</code> を返す
 <ul>
@@ -660,8 +659,6 @@ See Also:
       // Full list of configuration options available at:
       // https://github.com/hakimel/reveal.js#configuration
       Reveal.initialize({
-        // Display the page number of the current slide
-        slideNumber: true,
         // Push each slide change to the browser history
         history: true,
         // Vertical centering of slides

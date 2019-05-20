@@ -9,43 +9,33 @@ output:
     mathjax: NULL
     center: true
     theme: beige
-    reveal_options:
-      slideNumber: true
     reveal_plugins:
       - notes
     css: style.css
     self_contained: false
     md_extentions: +east_asian_line_breaks
-    template: default.html
+header-includes:
+    - <meta name="twitter:card" content="summary" />
+    - <meta name="twitter:title" content="サンプルスライド" />
+    - <meta name="twitter:image" content="https://github.com/atusy/presentation/raw/master/headphone.jpg" />
 ---
 
 ```{r setup, include=FALSE}
 pacman::p_load_gh("atusy/felp", "atusy/atusydown")
 pacman::p_load(prettycode, printr)
 knitr::opts_chunk$set(class.output = "output")
+headphone <- "![atusy](https://github.com/atusy/presentation/raw/master/headphone.jpg){height=0.8em}"
 ```
 
-# Atusy {#atusy}
+# `r headphone` Atusy {#atusy}
 
-:::: container
-
-::: item
-
-![](https://github.com/atusy/presentation/raw/master/headphone.jpg){height=6em width=6em}
-
-:::
-
-::: item
-
-- 仕事: 岩石などの化学分析とか R パッケージ開発とか
+- 仕事
+    - 岩石などの化学分析
+    - R パッケージ開発
 - ![](https://icongr.am/feather/home.svg)
   [blog.atusy.net](https://blog.atusy.net)
 - ![](https://icongr.am/feather/twitter.svg)
   [\@Atsushi776](https://twitter.com/Atsushi776)
-
-:::
-
-::::
 
 # ある日の Tokyo.R {#tokyor}
 
@@ -70,8 +60,8 @@ source("https://install-github.me/atusy/felp")
 他の偉大な R パッケージたちのついでに， \
 ThankYouStarsして下さい
 
-[ThankYouStarsで感謝の気持ちをスターで伝えよう](https://www.slideshare.net/ksmzn/thankyoustars)
-by kossy 氏 ([\@ksmzn](https://twitter.com/ksmzn))
+[ThankYouStarsで感謝の気持ちをスターで伝えよう](https://www.slideshare.net/ksmzn/thankyoustars) \
+by kossy[\@ksmzn](https://twitter.com/ksmzn)
 
 ## {#howto}
 
@@ -132,10 +122,13 @@ prettycode:::print.function(identity)
 
 # 制作秘話 {#secret}
 
-コンソールに関数のシンボルだけ打って \
-直ちにソースとヘルプを見たかったが挫折
+オレオレ `print.function` を作って
 
-## 黒魔術を駆使したが……
+`?` すら使わずシンボルを入力するだけで
+
+ソースとヘルプを見たかったが挫折
+
+## `a` と打ったら `"a"` を返して欲しい
 
 ```{r implicit-print-does-not-capture-input, collapse = TRUE, class.output = "", comment = "#>"}
 print.a <- function(x) deparse(substitute(x))
@@ -161,7 +154,7 @@ a
     )
     ```
 
-- オレオレ `print.funcion` を作ったら
+- いざ実装したら
     - 入力補完機能が動作している間ヘルプが繰り返し開く
     - そして **"an unexpected crash"**
 
