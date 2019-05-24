@@ -23,7 +23,7 @@ knitr::opts_chunk$set(class.output = "output")
 headphone <- "![atusy](https://github.com/atusy/presentation/raw/master/headphone.jpg){height=0.8em}"
 ```
 
-# `r headphone` Atusy {#atusy}
+# `r headphone` Atusy
 
 - 仕事
     - 岩石などの化学分析
@@ -33,7 +33,7 @@ headphone <- "![atusy](https://github.com/atusy/presentation/raw/master/headphon
 - ![](https://icongr.am/feather/twitter.svg)
   [\@Atsushi776](https://twitter.com/Atsushi776)
 
-# ある日の Tokyo.R {#tokyor}
+# ある日の Tokyo.R
 
 - 関数のヘルプ見る時，ソースも見たいよね．
 - 関数書いてからヘルプ欲しくなった時の `?` が面倒．
@@ -44,20 +44,14 @@ headphone <- "![atusy](https://github.com/atusy/presentation/raw/master/headphon
     ```
 <!-- - いっそ関数の名前だけでソースとヘルプ出して欲しい -->
 
-# [atusy/felp](https://github.com/atusy/felp) ![](https://icongr.am/feather/github.svg?size=48px) {#felp}
+# [atusy/felp](https://github.com/atusy/felp) ![](https://icongr.am/feather/github.svg?size=48px)
 
-## **f**unction h**elp** {#origin}
+## **f**unction h**elp**
 
 ```r
 # インストール
 source("https://install-github.me/atusy/felp")
 ```
-
-他の偉大な R パッケージたちのついでに， \
-ThankYouStarsして下さい
-
-[ThankYouStarsで感謝の気持ちをスターで伝えよう](https://www.slideshare.net/ksmzn/thankyoustars) \
-by kossy[\@ksmzn](https://twitter.com/ksmzn)
 
 ## {#howto}
 
@@ -87,21 +81,21 @@ library(printr) # Rmdの出力にヘルプが出せる!
 identity?.
 ```
 
-## 工夫1: 互換性 {#compatibility}
+## 工夫1: 互換性
 
-- `?` をS3総称関数として再定義し，
-    - 関数に対しては `felp:::?.function()` を呼ぶ
+- `?` を S3 化
+    - 関数に対しては `felp:::?.function()`
     - `iris` などその他のオブジェクトに対しては \
-      `felp:::?.default()` 経由で `utils::?()` を呼ぶ
+      `felp:::?.default()` 経由で `utils::?()`
 - `felp()` は `help()` と同じ引数を持つ
 
 
 
-## 工夫2: 疑似後置演算子 `?.` {#pseudo-postfix-operator}
+## 工夫2: 疑似後置演算子 `?.`
 
 `utils::?` は中置演算子
 
-本来は S4 メソッドのヘルプ参照などに使うらしい
+S4 で使うらしい
 
 ```r
 method?generic
@@ -109,26 +103,31 @@ method?generic
 
 `felp` では `help?.` なら `.` を無視して `?help` に見せかける
 
-## 工夫3: `prettycode` で syntax highlight {#prettycode}
+## 工夫3: `prettycode` で syntax highlight
 
 ```{r prettycode, class.output="r", comment=""}
 identity
 ```
 
 
-# 制作秘話 {#secret}
+# 制作秘話
 
-オレオレ `print.function` を作って
+## `?` すら面倒
 
-`?` すら使わずシンボルを入力するだけで
+```{r dream, echo = 1L, comment="", attr.output=".font-small"}
+identity
+help(identity)
+```
 
-ソースとヘルプを見たかったが挫折
 
 ## `a` と打ったら `"a"` を返して欲しい
 
-```{r implicit-print-does-not-capture-input, collapse = TRUE, class.output = "", comment = "#>"}
+```{r print-a-impl}
 print.a <- function(x) deparse(substitute(x))
 a <- structure(1, class = "a")
+```
+
+```{r print-a-test, collapse = TRUE, class.output = "", comment = "#>"}
 print(a)
 a
 ```
@@ -141,25 +140,25 @@ a
 
 ## RStudio との相性が最悪
 
-- 特殊な環境にいる `savehistory()` を使う必要あり
+- 特殊な環境にいる `savehistory()` が必要
 
     ```r
-    get(
-      'savehistory', 
-      envir = as.environment('tools:rstudio')
-    )
+    get('savehistory', 'tools:rstudio')
     ```
 
-- いざ実装したら
-    - 入力補完機能が動作している間ヘルプが繰り返し開く
-    - そして **"an unexpected crash"**
+- 入力補完機能動作時にヘルプを無限に開き直す
+
+→ **UNEXPECTED CRASH**
 
 
 # 今後の展開
 
 - `p?dplyr` で `dplyr` パッケージのヘルプを返す
 - `?iris` で `iris` のヘルプと `str(iris)` を返す
-    - ちなみに `felp(iris)` は `help(iris)` と `dput(iris)` を返すナゾ仕様
 - CRAN いっちゃう？
 
-# Enjoy!
+# Enjoy & Gimme Stars ☆
+
+[ThankYouStarsで感謝の気持ちをスターで伝えよう](https://www.slideshare.net/ksmzn/thankyoustars)
+
+by kossy[\@ksmzn](https://twitter.com/ksmzn) 氏

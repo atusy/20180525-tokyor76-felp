@@ -520,7 +520,7 @@ May I felp you?</p></h1>
     <h3 class="date">2019-05-25</h3>
 </section>
 
-<section id="atusy" class="title-slide slide level1"><h1><img data-src="https://github.com/atusy/presentation/raw/master/headphone.jpg" alt="atusy" style="height:0.8em" /> Atusy</h1><ul>
+<section id="atusy-atusy" class="title-slide slide level1"><h1><img data-src="https://github.com/atusy/presentation/raw/master/headphone.jpg" alt="atusy" style="height:0.8em" /> Atusy</h1><ul>
 <li>仕事
 <ul>
 <li>岩石などの化学分析</li>
@@ -529,21 +529,17 @@ May I felp you?</p></h1>
 <li><img data-src="https://icongr.am/feather/home.svg" /> <a href="https://blog.atusy.net">blog.atusy.net</a></li>
 <li><img data-src="https://icongr.am/feather/twitter.svg" /> <a href="https://twitter.com/Atsushi776">@Atsushi776</a></li>
 </ul></section>
-<section id="tokyor" class="title-slide slide level1"><h1>ある日の Tokyo.R</h1><ul>
+<section id="tokyo.r" class="title-slide slide level1"><h1>ある日の Tokyo.R</h1><ul>
 <li><p>関数のヘルプ見る時，ソースも見たいよね．</p></li>
 <li><p>関数書いてからヘルプ欲しくなった時の <code>?</code> が面倒．</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">  ?dplyr<span class="op">::</span>select</a>
 <a class="sourceLine" id="cb1-2" title="2"><span class="co"># ↑ここまで戻りたくない</span></a></code></pre></div>
 <!-- - いっそ関数の名前だけでソースとヘルプ出して欲しい --></li>
 </ul></section>
-<section><section id="felp" class="title-slide slide level1"><h1><a href="https://github.com/atusy/felp">atusy/felp</a> <img data-src="https://icongr.am/feather/github.svg?size=48px" /></h1></section><section id="origin" class="slide level2">
+<section><section id="atusyfelp" class="title-slide slide level1"><h1><a href="https://github.com/atusy/felp">atusy/felp</a> <img data-src="https://icongr.am/feather/github.svg?size=48px" /></h1></section><section id="function-help" class="slide level2">
 <h2><strong>f</strong>unction h<strong>elp</strong></h2>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="co"># インストール</span></a>
 <a class="sourceLine" id="cb2-2" title="2"><span class="kw">source</span>(<span class="st">&quot;https://install-github.me/atusy/felp&quot;</span>)</a></code></pre></div>
-<p>他の偉大な R パッケージたちのついでに，<br />
-ThankYouStarsして下さい</p>
-<p><a href="https://www.slideshare.net/ksmzn/thankyoustars">ThankYouStarsで感謝の気持ちをスターで伝えよう</a><br />
-by kossy<a href="https://twitter.com/ksmzn">@ksmzn</a></p>
 </section><section id="howto" class="slide level2">
 <h2></h2>
 <h3 id="section">関数のソースとヘルプを一発で</h3>
@@ -567,7 +563,7 @@ by kossy<a href="https://twitter.com/ksmzn">@ksmzn</a></p>
 <a class="sourceLine" id="cb4-3" title="3">identity?.</a></code></pre></div>
 <pre class="output font-small"><code>function (x) 
 x
-&lt;bytecode: 0x561b3fdf16a8&gt;
+&lt;bytecode: 0x5606d86656a8&gt;
 &lt;environment: namespace:base&gt;</code></pre>
 <pre class="output font-small"><code>Identity Function
 
@@ -586,68 +582,82 @@ Arguments:
 See Also:
 
      &#39;diag&#39; creates diagonal matrices, including identity ones.</code></pre>
-</section><section id="compatibility" class="slide level2">
+</section><section id="section-1" class="slide level2">
 <h2>工夫1: 互換性</h2>
 <ul>
-<li><code>?</code> をS3総称関数として再定義し，
+<li><code>?</code> を S3 化
 <ul>
-<li>関数に対しては <code>felp:::?.function()</code> を呼ぶ</li>
+<li>関数に対しては <code>felp:::?.function()</code></li>
 <li><code>iris</code> などその他のオブジェクトに対しては<br />
-<code>felp:::?.default()</code> 経由で <code>utils::?()</code> を呼ぶ</li>
+<code>felp:::?.default()</code> 経由で <code>utils::?()</code></li>
 </ul></li>
 <li><code>felp()</code> は <code>help()</code> と同じ引数を持つ</li>
 </ul>
-</section><section id="pseudo-postfix-operator" class="slide level2">
+</section><section id="section-2" class="slide level2">
 <h2>工夫2: 疑似後置演算子 <code>?.</code></h2>
 <p><code>utils::?</code> は中置演算子</p>
-<p>本来は S4 メソッドのヘルプ参照などに使うらしい</p>
+<p>S4 で使うらしい</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">method?generic</a></code></pre></div>
 <p><code>felp</code> では <code>help?.</code> なら <code>.</code> を無視して <code>?help</code> に見せかける</p>
-</section><section id="prettycode" class="slide level2">
+</section><section id="prettycode--syntax-highlight" class="slide level2">
 <h2>工夫3: <code>prettycode</code> で syntax highlight</h2>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">identity</a></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="cf">function</span> (x) </a>
 <a class="sourceLine" id="cb9-2" title="2">x</a>
-<a class="sourceLine" id="cb9-3" title="3"><span class="op">&lt;</span>bytecode<span class="op">:</span><span class="st"> </span><span class="dv">0x561b3fdf16a8</span><span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="op">&lt;</span>bytecode<span class="op">:</span><span class="st"> </span><span class="dv">0x5606d86656a8</span><span class="op">&gt;</span></a>
 <a class="sourceLine" id="cb9-4" title="4"><span class="er">&lt;</span>environment<span class="op">:</span><span class="st"> </span>namespace<span class="op">:</span>base<span class="op">&gt;</span></a></code></pre></div>
 </section></section>
-<section><section id="secret" class="title-slide slide level1"><h1>制作秘話</h1><p>オレオレ <code>print.function</code> を作って</p>
-<p><code>?</code> すら使わずシンボルを入力するだけで</p>
-<p>ソースとヘルプを見たかったが挫折</p></section><section id="a--a-" class="slide level2">
+<section><section id="section-3" class="title-slide slide level1"><h1>制作秘話</h1></section><section id="section-4" class="slide level2">
+<h2><code>?</code> すら面倒</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">identity</a></code></pre></div>
+<pre class="output font-small"><code>function (x) 
+x
+&lt;bytecode: 0x5606d86656a8&gt;
+&lt;environment: namespace:base&gt;</code></pre>
+<pre class="output font-small"><code>Identity Function
+
+Description:
+
+     A trivial identity function returning its argument.
+
+Usage:
+
+     identity(x)
+     
+Arguments:
+
+       x: an R object.
+
+See Also:
+
+     &#39;diag&#39; creates diagonal matrices, including identity ones.</code></pre>
+</section><section id="a--a-" class="slide level2">
 <h2><code>a</code> と打ったら <code>"a"</code> を返して欲しい</h2>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">print.a &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">deparse</span>(<span class="kw">substitute</span>(x))</a>
-<a class="sourceLine" id="cb10-2" title="2">a &lt;-<span class="st"> </span><span class="kw">structure</span>(<span class="dv">1</span>, <span class="dt">class =</span> <span class="st">&quot;a&quot;</span>)</a>
-<a class="sourceLine" id="cb10-3" title="3"><span class="kw">print</span>(a)</a>
-<a class="sourceLine" id="cb10-4" title="4"><span class="co">#&gt; [1] &quot;a&quot;</span></a>
-<a class="sourceLine" id="cb10-5" title="5">a</a>
-<a class="sourceLine" id="cb10-6" title="6"><span class="co">#&gt; x</span></a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">print.a &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">deparse</span>(<span class="kw">substitute</span>(x))</a>
+<a class="sourceLine" id="cb13-2" title="2">a &lt;-<span class="st"> </span><span class="kw">structure</span>(<span class="dv">1</span>, <span class="dt">class =</span> <span class="st">&quot;a&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw">print</span>(a)</a>
+<a class="sourceLine" id="cb14-2" title="2"><span class="co">#&gt; [1] &quot;a&quot;</span></a>
+<a class="sourceLine" id="cb14-3" title="3">a</a>
+<a class="sourceLine" id="cb14-4" title="4"><span class="co">#&gt; x</span></a></code></pre></div>
 <p>入力内容を暗黙の print で捕捉できない</p>
 <p>↓</p>
 <h3 id="savehistory-"><code>savehistory()</code> してコマンド履歴を漁る</h3>
 </section><section id="rstudio-" class="slide level2">
 <h2>RStudio との相性が最悪</h2>
 <ul>
-<li><p>特殊な環境にいる <code>savehistory()</code> を使う必要あり</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">get</span>(</a>
-<a class="sourceLine" id="cb11-2" title="2">  <span class="st">&#39;savehistory&#39;</span>, </a>
-<a class="sourceLine" id="cb11-3" title="3">  <span class="dt">envir =</span> <span class="kw">as.environment</span>(<span class="st">&#39;tools:rstudio&#39;</span>)</a>
-<a class="sourceLine" id="cb11-4" title="4">)</a></code></pre></div></li>
-<li><p>いざ実装したら</p>
-<ul>
-<li>入力補完機能が動作している間ヘルプが繰り返し開く</li>
-<li>そして <strong>“an unexpected crash”</strong></li>
-</ul></li>
+<li><p>特殊な環境にいる <code>savehistory()</code> が必要</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="kw">get</span>(<span class="st">&#39;savehistory&#39;</span>, <span class="st">&#39;tools:rstudio&#39;</span>)</a></code></pre></div></li>
+<li><p>入力補完機能動作時にヘルプを無限に開き直す</p></li>
 </ul>
+<p>→ <strong>UNEXPECTED CRASH</strong></p>
 </section></section>
-<section id="section-1" class="title-slide slide level1"><h1>今後の展開</h1><ul>
+<section id="section-5" class="title-slide slide level1"><h1>今後の展開</h1><ul>
 <li><code>p?dplyr</code> で <code>dplyr</code> パッケージのヘルプを返す</li>
-<li><code>?iris</code> で <code>iris</code> のヘルプと <code>str(iris)</code> を返す
-<ul>
-<li>ちなみに <code>felp(iris)</code> は <code>help(iris)</code> と <code>dput(iris)</code> を返すナゾ仕様</li>
-</ul></li>
+<li><code>?iris</code> で <code>iris</code> のヘルプと <code>str(iris)</code> を返す</li>
 <li>CRAN いっちゃう？</li>
 </ul></section>
-<section id="enjoy" class="title-slide slide level1"><h1>Enjoy!</h1></section>
+<section id="enjoy-gimme-stars" class="title-slide slide level1"><h1>Enjoy &amp; Gimme Stars ☆</h1><p><a href="https://www.slideshare.net/ksmzn/thankyoustars">ThankYouStarsで感謝の気持ちをスターで伝えよう</a></p>
+<p>by kossy<a href="https://twitter.com/ksmzn">@ksmzn</a> 氏</p></section>
     </div>
   </div>
 
